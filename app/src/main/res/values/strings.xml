@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">RePlugin Sample</string>
+    <string name="app_name">DevelopmentTools</string>
     <string name="startDemo1">Start plugin demo1</string>
     <string name="startDemo1ForResult">Start plugin demo1(forResult)</string>
     <string name="startDemo1LoadFragment">Start plugin demo1(Fragment from demo1)</string>
