@@ -13,6 +13,11 @@ import okhttp3.Response;
 /**
  * Created by jinguochong on 2017/8/16.
  * 从只用okhttp逐步增加其他框架
+ * 1.构建一个请求的 url header body key-value 参数；
+ * 2.把请求加到请求队列；
+ * 3.发起请求，得到response流；
+ * 4.转bean；
+ * 5.post到主线程。
  */
 
 public class RequestEvolution {

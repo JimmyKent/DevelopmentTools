@@ -3,9 +3,10 @@
     package="com.jimmy.development.plugin.imgplugin">
 
     <application
+        android:name=".ImgPluginApp"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.jimmy.development.plugin.imgplugin.MainActivity">
