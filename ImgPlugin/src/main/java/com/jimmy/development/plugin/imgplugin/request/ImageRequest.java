@@ -18,9 +18,9 @@ import retrofit2.http.Path;
 public class ImageRequest {
 
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         getImageListByRetrofit(1);
-    }
+    }*/
 
     public static void getImageListByRetrofit(int page) {
         Retrofit retrofit = RequestBuilder.buildRequest("http://gank.io/");
@@ -48,7 +48,14 @@ public class ImageRequest {
         });
     }
 
-//http://www.jianshu.com/p/7c907686f6c5
+    public void getImageListByRetrofit(int page, IHttpListener listener) {
+        Retrofit retrofit = RequestBuilder.buildRequest("http://gank.io/");
+        IImgList iImgList = retrofit.create(IImgList.class);
+        retrofit2.Call<ReturnDataList<ImageListBean>> call = iImgList.getImgList(page);
+        RequestBuilder.enqueue(call, listener);
+    }
+
+    //http://www.jianshu.com/p/7c907686f6c5
     private interface IImgList {
         @GET("api/data/Android/10/{page}")
         Call<ReturnDataList<ImageListBean>> getImgList(@Path("page") int page);
