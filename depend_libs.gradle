@@ -1,0 +1,36 @@
+//
+//
+
+
+ext {
+
+    moduleCompileSdkVersion = 26
+    moduleBuildToolsVersion = "26.0.0"
+
+
+    moduleMinSdkVersion = 15
+    moduleTargetSdkVersion = 26
+
+    tests = [
+            "junit": "junit:junit:4.12",
+            //http://mvnrepository.com/artifact/org.json/json/20170516
+            "json" : 'org.json:json:20170516',
+
+
+    ]
+
+    third = [
+            "android-support-design": 'com.android.support:design:23.4.0',
+            "recyclerview"          : 'com.android.support:recyclerview-v7:23.1.1',
+            "cardview"              : 'com.android.support:cardview-v7:21.0.3',
+            "eventbus"              : 'de.greenrobot:eventbus:2.4.0',
+            "okhttp"                : 'com.squareup.okhttp3:okhttp:3.8.1',//XXX 用什么版本？
+            "gson"                  : 'com.google.code.gson:gson:2.5',
+            "v4"                    : 'com.android.support:support-v4:25.3.1',
+            "glide"                 : 'com.github.bumptech.glide:glide:3.7.0',
+
+            "multidex"              : 'com.android.support:multidex:1.0.1',
+
+            "replugin-plugin-lib"   : 'com.qihoo360.replugin:replugin-plugin-lib:2.2.0',
+    ]
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Http</string>
+    <string name="token_invalid_try_relogin">账户失效，请尝试重新登录</string>
+    <string name="network_connect_error">网络连接出错</string>
+</resources>

@@ -1,6 +1,0 @@
-ext {
-    tests = [
-            "junit"              : "junit:junit:4.12",
-            "replugin-plugin-lib": 'com.qihoo360.replugin:replugin-plugin-lib:2.2.0'
-    ]
-}

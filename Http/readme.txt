@@ -1,0 +1,2 @@
+提供InputStream的回调
+提供Response的回调

@@ -1,1 +1,1 @@
-include ':host', ':ImgPlugin'
+include ':host',"Http", ':ImgPlugin', "Tools"

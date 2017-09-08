@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.moduleCompileSdkVersion
+    buildToolsVersion rootProject.ext.moduleBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.moduleMinSdkVersion
+        targetSdkVersion rootProject.ext.moduleTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    testCompile rootProject.ext.tests["junit"]
+
+    //flyme 6.0后，不再支持flyme-support这个库，用官网的v4
+    //compile 'com.meizu.flyme.sdk:flyme-support-v4:1.0.170217'
+    compile(rootProject.ext.third["v4"])
+    // 如果修改glide版本可能会影响公告的缓存策略，请注意
+    compile(rootProject.ext.third["glide"])
+
+
+}
