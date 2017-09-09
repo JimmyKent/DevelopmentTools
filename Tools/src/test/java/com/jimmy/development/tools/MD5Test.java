@@ -9,16 +9,13 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Test {
 
-    private String path = "/Users/.../AndroidStudioProjects/AdobePhotoshop2017 MAS.dmg";
+    private String path = "/Users/jinguochong/AndroidStudioProjects/AdobePhotoshop2017 MAS.dmg";
 
     @Test
     public void test2() {
-        MD5Utils.getMD5(path, true, new MD5Utils.IMD5Callback() {
-            @Override
-            public void callback(String md5) {
-                System.out.println("md5:" + md5);
-            }
-        });
+        String md5 = MD5Utils.getMD5(path, false);
+        System.out.println("md5:" + md5);
+
     }
 
     //bit 位：0/1     byte 字节：=8bit

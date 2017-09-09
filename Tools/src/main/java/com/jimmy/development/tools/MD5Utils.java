@@ -1,14 +1,12 @@
 package com.jimmy.development.tools;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,14 +20,26 @@ public class MD5Utils {
         void callback(String md5);
     }
 
+    public static void getMD5(@NonNull final String path, final boolean isFullPackage, @NonNull final IMD5Callback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String md5 = getMD5(path, isFullPackage);
+                callback.callback(md5);
+            }
+        }).start();
 
-    public static void getMD5(@NonNull String path, boolean isFullPackage, @NonNull IMD5Callback callback) {
-        if (TextUtils.isEmpty(path)) {
-            return;
+
+    }
+
+    @Nullable
+    public static String getMD5(@NonNull String path, boolean isFullPackage) {
+        if (path.equals("")) {
+            return null;
         }
         FileInputStream in = null;
         try {
-            MessageDigest md = getMessageDigest("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
 
             in = new FileInputStream(path);
             byte buffer[] = new byte[SIZE_1_K];
@@ -66,13 +76,13 @@ public class MD5Utils {
                     sb.append("0");
                 sb.append(Integer.toHexString(i));
             }
-            callback.callback(sb.toString());
+            return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            callback.callback(null);
+            return null;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            callback.callback(null);
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
             try {
@@ -80,23 +90,9 @@ public class MD5Utils {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            callback.callback(null);
+            return null;
         }
 
-    }
-
-    public static void getSHA1(@NonNull String path, @NonNull IMD5Callback callback) {
-        try {
-            MessageDigest md = getMessageDigest("MD5");
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private static MessageDigest getMessageDigest(@NonNull String algorithm) throws NoSuchAlgorithmException {
-        return MessageDigest.getInstance(algorithm);
     }
 
     /**
@@ -134,58 +130,6 @@ public class MD5Utils {
 
     private static final int SIZE_1_M = 1024 * 1024;
     private static final int SIZE_1_K = 1024;
-
-
-    public static String getFileMD5(File file, boolean isFullPackage) {
-        if (!file.isFile() || !file.exists()) {
-            return null;
-        }
-        if (isFullPackage) {
-            MessageDigest digest = null;
-            FileInputStream in = null;
-            byte buffer[] = new byte[1024];
-            int len;
-            try {
-                digest = MessageDigest.getInstance("MD5");
-                in = new FileInputStream(file);
-                while ((len = in.read(buffer, 0, 1024)) != -1) {
-                    digest.update(buffer, 0, len);
-                }
-                in.close();
-            } catch (Exception e) {
-                Log.w("MD5Utils", e);
-                return null;
-            }
-            BigInteger bigInt = new BigInteger(1, digest.digest());
-            return bigInt.toString(16);
-        } else {
-            MessageDigest digest;
-            FileInputStream in = null;
-            byte[] data = new byte[2 * SIZE_1_M];
-            try {
-                digest = MessageDigest.getInstance("MD5");
-                in = new FileInputStream(file);
-                int size = in.available();
-
-                in.read(data, 0, SIZE_1_M); // 前1m
-                int skip = size - (2 * SIZE_1_M);
-                in.skip(skip);
-                in.read(data, SIZE_1_M, SIZE_1_M); // 后1m
-                digest.update(data);
-                BigInteger bigInt = new BigInteger(1, digest.digest());
-                return bigInt.toString(16);
-            } catch (Exception e) {
-                Log.w("MD5Utils", e);
-                return null;
-            } finally {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.w("MD5Utils", e);
-                }
-            }
-        }
-    }
 
 
 }
