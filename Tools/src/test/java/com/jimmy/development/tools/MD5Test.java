@@ -6,23 +6,24 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Created by jinguochong on 17-9-8.
- * MD5，Message Digest Algorithm 5，信息摘要算法，
- * 可以将给定的任意长度数据通过一定的算法计算得出一个 128 位固定长度的散列值。
- * 压缩性：任意长度的原数据，其 MD5 值都是固定的，即 128 位；
- * 易计算：计算原数据的 MD5 值是一个比较容易的过程；
- * 抗修改：原数据的任意改动，所得到的 MD5 值都是迥然不同的；
- * 防碰撞：这一点要特别介绍一下。MD5 使用的是散列函数（也称哈希函数），一定概率上也存在哈希冲突（也称哈希碰撞），即多个不同的原数据对应一个相同的 MD5 值。不过，经过 MD4、MD3 等几代算法的优化，MD5 已经充分利用散列的分散性高度避免碰撞的发生。
- * 可以看出，MD5 是一种不可逆的算法，也就说，你无法通过得到的 MD5 值逆向算出原数据内容。正是凭借这些特点，MD5 被广泛使用。
- * 严格意义上来讲，MD5 以及 SHA1 并不属于加密算法，也不属于签名算法，而是一种摘要算法，用于数据完整性校验等。
- */
 
 public class MD5Test {
 
+    private String path = "/Users/.../AndroidStudioProjects/AdobePhotoshop2017 MAS.dmg";
+
+    @Test
+    public void test2() {
+        MD5Utils.getMD5(path, true, new MD5Utils.IMD5Callback() {
+            @Override
+            public void callback(String md5) {
+                System.out.println("md5:" + md5);
+            }
+        });
+    }
+
     //bit 位：0/1     byte 字节：=8bit
     //一个char 两个字节，一个字节8bit
-    @Test
+
     public void md5Test() throws NoSuchAlgorithmException {
         // 第一步，获取 MessageDigest 对象，参数为 MD5 字符串，表示这是一个 MD5 算法（其他还有 SHA1 算法等）：
         //MD5是16位,SHA是20位（这是两种报文摘要的算法）
@@ -32,12 +33,12 @@ public class MD5Test {
         //注意：update() 方法有点类似 StringBuilder 对象的 append() 方法，采用的是追加模式，属于一个累计更改的过程：
         //如果文件过大，不能一次全部把文件加入到内存里面
         //所以会采用部分加载的策略
-        messageDigest.update(inputByteArray);
+        messageDigest.update(inputByteArray);//这步应该是耗时
         // 转换并返回结果，也是字节数组，包含16个元素，其实是128位
         //注意：digest() 方法被调用后，MessageDigest 对象就被重置，也就是说你不能紧接着再次调用该方法计算原数据的 MD5 值。当然，你可以手动调用 reset() 方法重置输入源。
         //digest() 方法返回值是一个字节数组类型的 16 位长度的哈希值，通常，我们会转化为十六进制的 32 位长度的字符串来使用，可以利用 BigInteger 类来做这个转化：
         long time = System.currentTimeMillis();
-        byte[] resultByteArray = messageDigest.digest();
+        byte[] resultByteArray = messageDigest.digest();//128位 16byte
         //System.out.println("digest time : " + (System.currentTimeMillis() - time));
         //通常，我们会转化为十六进制的 32 位长度的字符串来使用，可以利用 BigInteger 类来做这个转化：（错误的）
         BigInteger bigInt = new BigInteger(1, resultByteArray);
@@ -132,8 +133,6 @@ public class MD5Test {
                 buf.append(Integer.toHexString(i));
             }
             result = buf.toString();
-            //System.out.println("MD5(" + sourceStr + ",32) = " + result);
-            //System.out.println("MD5(" + sourceStr + ",16) = " + buf.toString().substring(8, 24));
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }

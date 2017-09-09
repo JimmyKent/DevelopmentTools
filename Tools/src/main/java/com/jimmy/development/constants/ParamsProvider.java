@@ -135,7 +135,7 @@ public class ParamsProvider {
         language = DeviceUtil.getLanguageLocal();
 
         imei = DeviceUtil.getPhoneIMEI(context);
-        sn = DeviceUtil.getPhoneSn(context);
+
         deviceModel = Build.DEVICE;
         firmware = DeviceUtil.getSystemDisplayVersion();
 

@@ -43,30 +43,8 @@ public class DeviceUtil {
         return imei == null ? "" : imei;
     }
 
-    /**
-     * 获取meizu手机的sn号
-     *
-     * @param context
-     * @return
-     */
-    public static String getPhoneSn(Context context) {
-        String seqNum = PhoneUtils.getPhoneSn(context);
-        return seqNum == null ? "" : seqNum;
-    }
 
-    // 获取当前手机系统的版本号
-    public static String getSystemVersionString(Context context) {
-        // return "4.4.4-1404801688_dev";
-        try {
-            String build = SystemProperties.get("ro.build.mask.id");
-            if (build != null) {
-                return build;
-            }
-        } catch (Exception e) {
-            Log.w("getSystemVersionString", e);
-        }
-        return Build.DISPLAY;
-    }
+
 
     public static String getSystemDisplayVersion() {
         return Build.DISPLAY;
@@ -231,16 +209,6 @@ public class DeviceUtil {
         return String.valueOf(bool);
     }
 
-    // 判断是否阿里的Rom
-    public static boolean isAliRom(Context context) {
-        try {
-            String str = SystemProperties.get("ro.yunos.project");
-            return !TextUtils.isEmpty(str) && Boolean.parseBoolean(str);
-        } catch (Exception e) {
-            Log.w("isAliRom", e);
-        }
-        return false;
-    }
 
     /**
      * 判断机器是否为国际版本

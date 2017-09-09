@@ -17,17 +17,7 @@ public class PhoneUtils {
     private static String sPhoneSn;
     private static String sImei;
 
-    public synchronized static String getMzPhoneSn(Context context) {
-        if (sPhoneSn == null) {
-            sPhoneSn = SystemProperties.get("ro.serialno");
-        }
-        //Log.e("PhoneUtils", "Get Mz Phone SN " + sPhoneSn + "xxx");
-        return sPhoneSn;
-    }
 
-    public static String getPhoneSn(Context context) {
-        return getMzPhoneSn(context);
-    }
 
     public static String getDeviceModel() {
         String model = null;
@@ -94,52 +84,5 @@ public class PhoneUtils {
         return sImei;
     }
 
-    private static String getPhoneSnByService(Context context) {
-        // 通过service的方法获取暂时用不了
-        boolean tryOldMethod = false;
-        String sn = "";
-        try {
-            IBinder binder = ServiceManager.checkService("phone_ext");
-            if (binder == null) {
-                tryOldMethod = true;
-            } else {
-                Object iInterface = ReflectHelper.invokeStatic("com.meizu.telephony.ITelephonyExt$Stub", "asInterface", new Class<?>[]{IBinder.class}, new Object[]{binder});
-                Method querySN = Class.forName("com.meizu.telephony.ITelephonyExt").getMethod("queryProductSeqNo");
-                sn = (String) querySN.invoke(iInterface);
-                if (sn == null) {
-                    sn = "";
-                }
-            }
-        } catch (NoSuchMethodException e) {
-            tryOldMethod = true;
-        } catch (ClassNotFoundException e) {
-            tryOldMethod = true;
-        } catch (Exception e) {
-            // ignore exception
-            Log.w("getPhoneSnByService", e);
-        }
-        if (tryOldMethod) {
-            sn = getOldPhoneSn(context);
-        }
 
-        Log.w("PhoneUtils", "Get Phone SN " + sn + "XXX");
-        return sn;
-    }
-
-    private static String getOldPhoneSn(Context context) {
-        try {
-            Object binder = ServiceManager.checkService("phone");
-            Object iInterface = ReflectHelper.invokeStatic("com.android.internal.telephony.ITelephony$Stub", "asInterface", new Class<?>[]{IBinder.class}, new Object[]{binder});
-            Method querySN = Class.forName("com.android.internal.telephony.ITelephony").getMethod("queryProductSeqNo");
-            String sn = (String) querySN.invoke(iInterface);
-            if (sn == null) {
-                sn = "";
-            }
-            return sn;
-        } catch (Exception e) {
-            // ignore all exception
-            Log.w("getOldPhoneSn", e);
-        }
-        return "";
-    }
 }

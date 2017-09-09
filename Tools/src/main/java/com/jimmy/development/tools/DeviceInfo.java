@@ -35,10 +35,6 @@ public class DeviceInfo {
     private static Boolean sHasSmartBar = null;
     private static String mDeviceId;
 
-    public static String getPhoneSN(Context context) {
-        String seqNum = PhoneUtils.getPhoneSn(context);
-        return seqNum == null ? "" : seqNum;
-    }
 
     public static String getPhoneIMEI(Context context) {
         String imei = PhoneUtils.getDefaultImei(context);
