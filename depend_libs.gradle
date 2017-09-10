@@ -24,8 +24,11 @@ ext {
             "recyclerview"          : 'com.android.support:recyclerview-v7:23.1.1',
             "cardview"              : 'com.android.support:cardview-v7:21.0.3',
             "eventbus"              : 'de.greenrobot:eventbus:2.4.0',
+            "retrofit"              : 'com.squareup.retrofit2:retrofit:2.3.0',
+            "converter-gson"        : 'com.squareup.retrofit2:converter-gson:2.1.0',
             "okhttp"                : 'com.squareup.okhttp3:okhttp:3.8.1',//XXX 用什么版本？
-            "gson"                  : 'com.google.code.gson:gson:2.5',
+            "okio"                  : 'com.squareup.okio:okio:1.13.0',
+            "gson"                  : 'com.google.code.gson:gson:2.7',
             "v4"                    : 'com.android.support:support-v4:25.3.1',
             "glide"                 : 'com.github.bumptech.glide:glide:3.7.0',
 

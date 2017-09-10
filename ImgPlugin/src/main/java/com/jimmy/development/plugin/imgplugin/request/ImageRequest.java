@@ -30,7 +30,7 @@ public class ImageRequest {
         /*try {
             retrofit2.Response<ResponseBody> bodyResponse = call.execute();
             String body = bodyResponse.body().string();
-            System.out.println("wxl" + "  body=" + body);
+            System.out.println("body=" + body);
         } catch (IOException e) {
             e.printStackTrace();
         }*/

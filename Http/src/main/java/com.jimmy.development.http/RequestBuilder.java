@@ -16,9 +16,7 @@ public class RequestBuilder {
      * @param pkgName 游戏的包名
      * @return request
      */
-    public static OriginalRequest createSDKRequest(String url, String pkgName) {
-        return new SDKRequest(url, pkgName);
-    }
+
 
     // 默认请求，不会记录log
     public static OriginalRequest createDefaultRequest(String url) {

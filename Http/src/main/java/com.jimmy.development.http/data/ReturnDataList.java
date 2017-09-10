@@ -15,4 +15,15 @@ public class ReturnDataList<T> {
     public int size;
     public int total;
     public ArrayList<T> values;
+
+    @Override
+    public String toString() {
+        return "ReturnDataList{" +
+                "expire=" + expire +
+                ", index=" + index +
+                ", size=" + size +
+                ", total=" + total +
+                ", values=" + values +
+                '}';
+    }
 }

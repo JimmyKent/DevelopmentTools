@@ -54,7 +54,7 @@ public class RetrofitTest {
         try {
             Response<ResponseBody> bodyResponse = call.execute();
             String body = bodyResponse.body().string();//获取返回体的字符串
-            System.out.println("wxl" + "  body=" + body);
+            System.out.println("  body=" + body);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class RetrofitTest {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String body = response.body().string();//获取返回体的字符串
-                    System.out.println("wxl" + "  body=" + body);
+                    System.out.println("body=" + body);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +72,7 @@ public class RetrofitTest {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("wxl" + "  onFailure=" + t.getMessage());
+                System.out.println("onFailure=" + t.getMessage());
             }
 
         });*/
