@@ -1,9 +1,10 @@
-package com.example;
+package com.jimmy.development.iolib;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.FileChannel;
 
 /**
@@ -18,6 +19,19 @@ public class IOTest {
 
 
     }
+    //InputStream/OutputStream 面向字节
+    //InputStreamReader/OutputStreamWrite 转换InputStream-->Reader
+    //Reader/Write 面向字符
+
+    //RandomAccessFile 适用于大小已知的文件. seek
+    //RandomAccessFile 1.4之后大部分功能由nio存储隐射文件取代
+
+    //InputStream 的available: 在没有阻塞的情况下所能读取的字节数,要谨慎使用
+
+    //LineNumberReader 行数相关
+
+    
+
 
     //读文件 thinking in java 有几种Reader
     //按行读取
