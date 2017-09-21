@@ -1,1 +1,1 @@
-include ':host', ':Retrofit', ':IOLib', ':Annotation', "Http", ':ImgPlugin', "Tools"
+include ':host', ':Retrofit', ':IOLib', ':Annotation', ':Sudoku', "Http", ':ImgPlugin', "Tools"
