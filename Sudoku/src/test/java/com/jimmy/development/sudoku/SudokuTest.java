@@ -38,8 +38,9 @@ public class SudokuTest {
 
         print(arr);
 
-        cal(arr);
+        //cal(arr);
 
+        //backTrack(arr);
 
     }
 
@@ -70,6 +71,28 @@ public class SudokuTest {
         System.out.println("Zero sum : " + zeroSum);
 
         return arr;
+    }
+
+    /**
+     * 回溯法求解:
+     * 认为数独位置有序;
+     * guess 起点有两种:
+     * a.从0一直往后遍历
+     * b.从possible最少的开始遍历
+     *
+     * 选b:
+     * 维护List<Cell>
+     * cell.possible 只由value改变才进行改变, 不随guess改变而变,
+     * Cell添加guess list, 如果产生回溯, 删除guess list 的最后一个元素
+     *
+     *
+     * @param input 原始数独
+     */
+    public void backTrack(int[][] input) {
+
+        //
+
+
     }
 
     private static void cal(int[][] input) {
