@@ -1,6 +1,5 @@
 package com.jimmy.development.sudoku;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -10,71 +9,74 @@ import org.junit.Test;
 public class EightQueenTest {
 
     private int[] existPos = new int[8];//
+    private static int count;
 
     @Test
     public void main() {
         for (int i = 0; i < existPos.length; i++) {
             existPos[i] = -1;
         }
-        cal(0, false);
+        cal(0);
     }
 
 
-    @Test
+    /*@Test
     public void testPosValid() {
         boolean valid = posValid(63, 0);
         Assert.assertEquals(valid, false);
 
-    }
+    }*/
 
-    private void cal(int pos, boolean isRevert) {
 
+    /**
+     * 每层递归设一个指针，从左往右，如果找到合法的就赋值，往下进行
+     * 产生回溯的时候，重置当前指针位置
+     */
+    private void cal(int pos) {
         int x = pos % 8;
-        int y = pos / 8;
+        final int Y = pos / 8;
 
-        if (y == 7 && x == 8) {
+        if (x == -1) {
             return;
         }
-        if (isRevert) {
-            if (x == 7) {
-                int prev = existPos[y];
-                existPos[y] = -1;
-                cal(++prev, true);
+        if (Y == 8) {
+            print(existPos);
+
+            int last = existPos[Y - 1];
+            existPos[Y - 1] = -1;
+            if (last % 8 == 7) {
+                last = existPos[Y - 2];
+                existPos[Y - 2] = -1;
+            }
+            cal(++last);
+            return;
+        }
+
+        while (x < 8) {
+            if (isValid(pos)) {
+                existPos[Y] = pos;
+
+                int next = 8 * (Y + 1);
+                cal(next);//前进
+                return;
+            } else {
+                x++;
+                pos = x + Y * 8;
+            }
+        }
+        //回溯
+        //if (x == 8) {
+        int last = existPos[Y - 1];
+        existPos[Y - 1] = -1;
+        if (last % 8 == 7) {
+            if (Y - 2 == -1) {
                 return;
             }
-            //pos++;
+            last = existPos[Y - 2];
+            existPos[Y - 2] = -1;
         }
-
-        x = pos % 8;
-        y = pos / 8;
-
-        while (pos < 64) {
-            if (isValid(pos)) {
-                existPos[y] = pos;
-                print(existPos);
-                x = 0;
-                y++;
-                pos = y * 8 + x;
-            } else {
-                x = pos % 8;
-                y = pos / 8;
-                if (x == 7) {
-                    y--;
-                    System.out.println("y =" + y);
-                    int prev = existPos[y];
-                    System.out.println("prev =" + prev);
-                    existPos[y] = -1;
-                    print(existPos);
-                    cal(++prev, true);
-                    return;
-                }
-                pos++;
-            }
-
-        }
-
-        print(existPos);
-
+        cal(++last);
+        //}
     }
 
     private boolean isValid(int pos) {
@@ -119,12 +121,17 @@ public class EightQueenTest {
         return true;
     }
 
-    private static void print(int[] arr) {
+    private void print(int[] arr) {
+        count++;
+        System.out.println(count);
         int[][] towArr = new int[8][8];
+        StringBuilder sb = new StringBuilder();
         for (int i : arr) {
             i = i < 0 ? 0 : i;
+            sb.append(i).append(" ");
             towArr[i / 8][i % 8] = 1;
         }
+        System.out.println(sb);
         print(towArr);
     }
 
