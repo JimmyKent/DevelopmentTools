@@ -1,4 +1,4 @@
-package com.jimmy.development.sudoku;
+package com.jimmy.development.queen8;
 
 import org.junit.Test;
 

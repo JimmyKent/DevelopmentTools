@@ -1,12 +1,14 @@
-package com.jimmy.development.sudoku;
+package com.jimmy.development.queen8;
 
 import org.junit.Test;
 
 /**
- * Created by jinguochong on 17-11-20.
+ * Created by jinguochong on 17-11-23.
+ * 深度优先算法
+ *
  */
 
-public class EightQueenTest {
+public class EightQueenTest2 {
 
     private int[] existPos = new int[8];//
     private static int count;
@@ -19,18 +21,9 @@ public class EightQueenTest {
         cal(0);
     }
 
-
-    /*@Test
-    public void testPosValid() {
-        boolean valid = posValid(63, 0);
-        Assert.assertEquals(valid, false);
-
-    }*/
-
-
     /**
      * 每层递归设一个指针，从左往右，如果找到合法的就赋值，往下进行
-     * 产生回溯的时候，重置当前指针位置
+     * 不会产生回溯过程
      */
     private void cal(int pos) {
         int x = pos % 8;
@@ -41,42 +34,25 @@ public class EightQueenTest {
         }
         if (Y == 8) {
             print(existPos);
-
-            int last = existPos[Y - 1];
-            existPos[Y - 1] = -1;
-            if (last % 8 == 7) {
-                last = existPos[Y - 2];
-                existPos[Y - 2] = -1;
-            }
-            cal(++last);
             return;
         }
 
         while (x < 8) {
             if (isValid(pos)) {
                 existPos[Y] = pos;
-
                 int next = 8 * (Y + 1);
-                cal(next);//前进
-                return;
+                cal(next);
+                //深度优先的精髓,需要清空当前行的赋值
+                existPos[Y] = -1;
+                x++;
+                pos = x + Y * 8;
+
             } else {
                 x++;
                 pos = x + Y * 8;
             }
         }
-        //回溯
-        //if (x == 8) {
-        int last = existPos[Y - 1];
-        existPos[Y - 1] = -1;
-        if (last % 8 == 7) {
-            if (Y - 2 == -1) {
-                return;
-            }
-            last = existPos[Y - 2];
-            existPos[Y - 2] = -1;
-        }
-        cal(++last);
-        //}
+
     }
 
     private boolean isValid(int pos) {

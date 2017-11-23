@@ -24,7 +24,7 @@ import java.util.Set;
  * └───────┴───────┴───────┘
  */
 
-public class SudokuTest3 {
+public class SudokuTest4 {
 
     private static String test =
             "" +
@@ -108,29 +108,10 @@ public class SudokuTest3 {
 
     /**
      * 回溯法求解:
-     * 认为数独位置有序;
-     * guess 起点有两种:
-     * a.从0一直往后遍历
-     * b.从possible最少的开始遍历
-     * <p>
-     * 选b:
-     * 维护List<Cell>
-     * cell.possible 只由value改变才进行改变, 不随guess改变而变,
-     * Cell添加guess list, 如果产生回溯, 删除guess list 的最后一个元素
-     * 维护的东西太多了, 不好回溯, 需要牺牲太多内存在存各种状态的List
-     * <p>
-     * 选a:
-     * 暴力求解的略微改进;
-     * guess从小到大进行
-     * 思路:从0-80 顺序guess, 不需要维护guess表, 产生guess之后, 立即计算下一个位置的可能.
-     * 如果产生回溯, 只需把当前guess的值++,
-     * <p>
-     * 这里是a解法
-     *
-     *
-     * 对于任意空位:
-     * a.关注上一步是前进还是回溯
-     * b.关注当前步是前进还是回溯
+     * 换种思路:
+     * 每次猜测的位置是可能性最小的第一个位置
+     * 维护猜测的位置列表,用于回溯,
+     * 每次填入(猜测或者确定值)都会
      * @param input 原始数独
      */
     private static void backTrack(int[][] input, int position, boolean isRecursion) {
