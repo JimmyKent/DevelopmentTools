@@ -1,0 +1,28 @@
+
+jinguochongdeMacBook-Pro:ProjectEuler jinguochong$ git commit
+error: cannot run gpg: No such file or directory
+error: gpg failed to sign the data
+fatal: failed to write commit object
+
+solve:
+
+Somehow your git is configured to GPG sign every commit. Signing with GPG isn't required to commit or push using git. It's likely giving the error because your gpg signing mechanism isn't configured yet.
+
+If you're new to git, try to get it working first without GPG signing at first, then add signing in later if you really need it.
+
+You can verify how your git is configured with regards to gpg by doing:
+
+
+git config -l | grep gpg
+
+
+Which may produce zero or more lines, including:
+
+commit.gpgsign=true
+If "commit.gpgsign" is true, then you have gpg signing enabled. Disable it with:
+
+
+git config --global --unset commit.gpgsign
+
+
+Then try to run your commit again. It should now run without gpg signing. After you get the basic git working, then you should try adding gpg signing back to the mix.
