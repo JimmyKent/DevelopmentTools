@@ -26,6 +26,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     testCompile rootProject.ext.tests["junit"]
+    testCompile rootProject.ext.third["gson"]
 
     //flyme 6.0后，不再支持flyme-support这个库，用官网的v4
     //compile 'com.meizu.flyme.sdk:flyme-support-v4:1.0.170217'
